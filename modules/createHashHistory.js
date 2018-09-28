@@ -176,7 +176,7 @@ const createHashHistory = (props = {}) => {
   const createHref = location =>
     "#" + encodePath(basename + createPath(location));
 
-  const push = (path, state) => {
+  const push = (path, state, cb) => {
     warning(
       state === undefined,
       "Hash history cannot push state; it is ignored"
@@ -195,6 +195,7 @@ const createHashHistory = (props = {}) => {
       action,
       getUserConfirmation,
       ok => {
+        cb(ok);
         if (!ok) return;
 
         const path = createPath(location);
@@ -230,7 +231,7 @@ const createHashHistory = (props = {}) => {
     );
   };
 
-  const replace = (path, state) => {
+  const replace = (path, state, cb) => {
     warning(
       state === undefined,
       "Hash history cannot replace state; it is ignored"
@@ -249,6 +250,7 @@ const createHashHistory = (props = {}) => {
       action,
       getUserConfirmation,
       ok => {
+        cb(ok);
         if (!ok) return;
 
         const path = createPath(location);
